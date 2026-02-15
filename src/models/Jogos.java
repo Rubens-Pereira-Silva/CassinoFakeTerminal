@@ -1,8 +1,6 @@
 package models;
 
 public interface Jogos {
-    void jogar();
-    void vitoria();
-    void derrota();
-    void jogarNovamente();
+    void jogar() throws InterruptedException;
+    void jogarNovamente() throws InterruptedException;
 }

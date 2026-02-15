@@ -25,7 +25,7 @@ public class Jackpot implements Jogos {
     double valorApostado;
 
     @Override
-    public void jogar() {
+    public void jogar() throws InterruptedException {
         jogador.mostrarCarteira();
         System.out.println("Quanto deseja Apostar no jackpot?");
         valorApostado = ler.nextDouble();
@@ -35,21 +35,39 @@ public class Jackpot implements Jogos {
         }
         execurtarJogo();
     }
-    @Override
-    public void vitoria() {}
-    public void derrota() {}
-    private void execurtarJogo() {
+    public void jogarNovamente() throws InterruptedException {
+        System.out.println("1 - jogar novamente \n2 - mudar aposta \n3 - sair do jogo");
+        switch (ler.nextInt()){
+            case 1:
+                execurtarJogo();
+                break;
+            case 2:
+                System.out.print("\033[H\033[2J");
+                jogar();
+                break;
+            case 3:
+                System.out.print("\033[H\033[2J");
+                return;
+        }
+    }
+
+    private void execurtarJogo() throws InterruptedException {
         if(!jogador.removerDinheiro(valorApostado)){
             System.out.println("Não tem essa quantia para apostar");
             jogarNovamente();
         }
-        String[] listaEmojis = new String[] {
-                emojis[random.nextInt(emojis.length)],
-                emojis[random.nextInt(emojis.length)],
-                emojis[random.nextInt(emojis.length)]
-        };
+        System.out.print("\033[H\033[2J");
+        //Simula o giro do jackpot
+        for(int i = 0; i < 5; i++){
+            String[] listaEmojisFake = emojisAleatorios();
+            System.out.print("\r" + listaEmojisFake[0] + listaEmojisFake[1] + listaEmojisFake[2]);
+            Thread.sleep(150);
+        }
+
+        //Resultado da aposta do jackpot
+        String[] listaEmojis = emojisAleatorios();
         boolean ganhou = listaEmojis[0].equals(listaEmojis[1]) && listaEmojis[1].equals(listaEmojis[2]);
-        System.out.println(listaEmojis[0] + listaEmojis[1] + listaEmojis[2]);
+        System.out.println("\r" + listaEmojis[0] + listaEmojis[1] + listaEmojis[2]);
         if(ganhou){
             System.out.println("Voce ganhou " + (valorApostado * 10) + " !!!");
             jogador.adicionarDinheiro(valorApostado * 10);
@@ -58,20 +76,14 @@ public class Jackpot implements Jogos {
         jogador.mostrarCarteira();
         jogarNovamente();
     }
-    public void jogarNovamente(){
-        System.out.println("1 - jogar novamente \n2 - mudar aposta \n3 - sair do jogo");
-        switch (ler.nextInt()){
-            case 1:
-                execurtarJogo();
-                break;
-            case 2:
-                jogar();
-                break;
-                case 3:
-                    return;
-        }
-    }
 
+    private String[] emojisAleatorios(){
+        return  new String[] {
+                emojis[random.nextInt(emojis.length)],
+                emojis[random.nextInt(emojis.length)],
+                emojis[random.nextInt(emojis.length)]
+        };
+    }
     public String getNome(){
         return nome;
     }

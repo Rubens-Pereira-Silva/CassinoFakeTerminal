@@ -14,6 +14,9 @@ public class Cassino {
             System.out.println("--- Cassino ---");
             System.out.println("1 - Jackpots");
 
+
+            System.out.println("0 - Sair do Cassino");
+
             int option = input.nextInt();
 
             if (option == 0) {
@@ -29,13 +32,16 @@ public class Cassino {
 
     //metodos para iniciar jogos
     public static void jogarJackpot() {
+        System.out.print("\033[H\033[2J");
         for (int i = 0; i < jackpotsList.length; i++) {
             System.out.println((i + 1) + " - " + jackpotsList[i].getNome());
         }
         int option = input.nextInt();
         try {
+            System.out.print("\033[H\033[2J");
             jackpotsList[option - 1].jogar();
         } catch (Exception e) {
+            System.out.print("\033[H\033[2J");
             System.out.println("Opção invalida");
         }
     }
