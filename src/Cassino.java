@@ -1,6 +1,8 @@
 import models.Jogador;
+import view.Dados;
 import view.Jackpot;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cassino {
@@ -8,12 +10,13 @@ public class Cassino {
     static Scanner input = new Scanner(System.in);
 
     static Jackpot[] jackpotsList = getListJackpots();
+    static Dados dados = new Dados(jogador);
 
     public static void main(String[] args) {
         while (true) {
             System.out.println("--- Cassino ---");
             System.out.println("1 - Jackpots");
-
+            System.out.println("2 - Dados");
 
             System.out.println("0 - Sair do Cassino");
 
@@ -25,6 +28,9 @@ public class Cassino {
             switch (option) {
                 case 1:
                     jogarJackpot();
+                    break;
+                case 2:
+                    dados.jogar();
                     break;
             }
         }

@@ -35,7 +35,7 @@ public class Jackpot implements Jogos {
         }
         execurtarJogo();
     }
-    public void jogarNovamente() throws InterruptedException {
+    public boolean jogarNovamente() throws InterruptedException {
         System.out.println("1 - jogar novamente \n2 - mudar aposta \n3 - sair do jogo");
         switch (ler.nextInt()){
             case 1:
@@ -47,8 +47,9 @@ public class Jackpot implements Jogos {
                 break;
             case 3:
                 System.out.print("\033[H\033[2J");
-                return;
+                return true;
         }
+        return true;
     }
 
     private void execurtarJogo() throws InterruptedException {
